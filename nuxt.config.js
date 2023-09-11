@@ -21,6 +21,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    "layouts/global.css"
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -36,11 +37,13 @@ export default {
     '@nuxtjs/tailwindcss',
   ],
 
-  publicRuntimeConfig: {
+  
     axios: {
-      baseURL: 'http://127.0.0.1:8000/api'
-    }
-  },
+      baseURL: 'http://127.0.0.1:8000'
+    },
+    proxy: {
+      '/api/': 'http://127.0.0.1:8000', // Replace with your API server URL
+    },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['@nuxtjs/axios'],
