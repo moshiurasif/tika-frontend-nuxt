@@ -176,6 +176,26 @@
 
       <ThreeSteps />
     </div>
+    <div class="primary-bg text-center text-white text-2xl font-bold py-20">
+      <div class="container mx-auto">
+        <div class="flex">
+          <div class="flex-1 px-10">
+            <h3 class="font-bold text-5xl mb-4">10,000,000</h3>
+            <p>Registered</p>
+          </div>
+
+          <div class="flex-1 px-10">
+            <h3 class="font-bold text-5xl mb-4">8,000,000</h3>
+            <p>Vaccinated</p>
+          </div>
+
+          <div class="flex-1 px-10">
+            <h3 class="font-bold text-5xl mb-4">7,000,000</h3>
+            <p>Certificate Issued</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

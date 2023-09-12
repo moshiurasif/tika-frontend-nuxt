@@ -24,3 +24,22 @@
 .tika-text-primary, .nuxt-link-exact-active.menu-item {color: #27AE60}
 .tika-text-orange {color: #F2994A}
 .tika-text-blue {color: #3300FF}
+
+.tika-step:before,
+.tika-step:after {
+
+  top: 50%;
+  height: 2px;
+  width: 163px;
+  content: "";
+  background-color: #D6D6D6;
+  position: absolute;
+  margin-top: -1px;
+}
+
+.tika-step:before {right: 20px;}
+.tika-step:after {left: 20px;}
+
+.flex-1:first-child .tika-step:before, .flex-1:last-child .tika-step:after {
+  display: none;
+}
