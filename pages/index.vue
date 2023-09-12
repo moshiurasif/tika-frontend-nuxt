@@ -1,5 +1,27 @@
 <template>
   <div class="relative">
+    <div class="primary-bg pt-2 pb-24">
+      <div class="container mx-auto">
+        <div class="flex items-center">
+          <div class="w-full">
+            <h1
+              class="hero-heading font-bold text-white uppercase leading-none mb-6"
+            >
+              Vaccine
+            </h1>
+            <h2 class="text-7xl font-medium text-white mb-10">Registration</h2>
+            <p class="text-white text-2xl">
+              Complete the registration by verifying your national identity card
+              and mobile number
+            </p>
+            <button class="primary-btn2 mt-10">Registration</button>
+          </div>
+          <div class="min-w-max">
+            <img width="400" src="~/static/img/bro.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="relative">
       <div class="dots-1 absolute left-10 top-10"></div>
       <div class="container mx-auto small-container text-center py-20">
@@ -82,14 +104,88 @@
         </div>
       </div>
     </div>
+    <div class="container mx-auto">
+      <div class="primary-bg text-white mx-auto rounded-3xl py-20 px-16">
+        <div class="flex items-center">
+          <div class="w-1/3 mr-10 font-bold">
+            <h3 class="text-7xl uppercase">Hotline</h3>
+            <p class="text-4xl">Numbers</p>
+          </div>
+          <div class="w-2/3">
+            <div class="flex flex-wrap -mx-8">
+              <div class="w-1/2 px-8 mb-8">
+                <div class="bg-white p-4 rounded-lg text-black">
+                  <div class="flex items-center">
+                    <div class="min-w-max mr-2">
+                      <img src="~/static/img/phone-pink.svg" alt="" />
+                    </div>
+                    <div class="w-full">
+                      <h4 class="tika-text-pink text-4xl font-bold">333</h4>
+                      <p class="text-xl">Call Center</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="w-1/2 px-8 mb-8">
+                <div class="bg-white p-4 rounded-lg text-black">
+                  <div class="flex items-center">
+                    <div class="min-w-max mr-2">
+                      <img src="~/static/img/phone-green.svg" alt="" />
+                    </div>
+                    <div class="w-full">
+                      <h4 class="tika-text-primary text-4xl font-bold">
+                        16263
+                      </h4>
+                      <p class="text-xl">Health Portal</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="w-1/2 px-8">
+                <div class="bg-white p-4 rounded-lg text-black">
+                  <div class="flex items-center">
+                    <div class="min-w-max mr-2">
+                      <img src="~/static/img/phone-orange.svg" alt="" />
+                    </div>
+                    <div class="w-full">
+                      <h4 class="tika-text-orange text-4xl font-bold">10655</h4>
+                      <p class="text-xl">IEDCR</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="w-1/2 px-8">
+                <div class="bg-white p-4 rounded-lg text-black">
+                  <div class="flex items-center">
+                    <div class="min-w-max mr-2">
+                      <img src="~/static/img/phone-blue.svg" alt="" />
+                    </div>
+                    <div class="w-full">
+                      <h4 class="tika-text-blue text-4xl font-bold">09666</h4>
+                      <p class="text-xl">Covid-19</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ThreeSteps />
+    </div>
   </div>
 </template>
 
 <script>
 import VaccineSteps from "../components/VaccineSteps";
+import ThreeSteps from "../components/ThreeSteps";
 export default {
   components: {
     VaccineSteps,
+    ThreeSteps,
   },
   data() {
     return {};

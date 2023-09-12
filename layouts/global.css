@@ -19,3 +19,8 @@
 .small-container {max-width: 1000px}
 
 .dots-1 {width: 130px; height: 108px;background-image: url(static/img/dots-1.svg)}
+
+.tika-text-pink {color: #FF3C8E}
+.tika-text-primary, .nuxt-link-exact-active.menu-item {color: #27AE60}
+.tika-text-orange {color: #F2994A}
+.tika-text-blue {color: #3300FF}

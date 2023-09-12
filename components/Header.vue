@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="primary-bg">
-      <div class="container mx-auto py-20">
-        <div class="bg-white mb-20">
+      <div class="container mx-auto pt-20 pb-10">
+        <div class="bg-white">
           <div class="flex items-center">
             <div class="min-w-max">
               <h2 class="text-2xl font-bold uppercase text-block px-6">TIKA</h2>
@@ -24,25 +24,6 @@
                 <NuxtLink to="" class="primary-btn">Register Now</NuxtLink>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="flex items-center">
-          <div class="w-full">
-            <h1
-              class="hero-heading font-bold text-white uppercase leading-none mb-6"
-            >
-              Vaccine
-            </h1>
-            <h2 class="text-7xl font-medium text-white mb-10">Registration</h2>
-            <p class="text-white text-2xl">
-              Complete the registration by verifying your national identity card
-              and mobile number
-            </p>
-            <button class="primary-btn2 mt-10">Registration</button>
-          </div>
-
-          <div class="min-w-max">
-            <img width="400" src="../static/img/bro.png" alt="" />
           </div>
         </div>
       </div>
