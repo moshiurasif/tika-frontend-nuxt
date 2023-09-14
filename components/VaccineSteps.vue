@@ -31,7 +31,7 @@
           />
         </div>
         <div
-          v-bind:class="
+          :class="
             theme == 'homepage' || theme == 'step_2 ' || theme == 'step_3'
               ? 'border-green-600'
               : 'border-gray-400'
