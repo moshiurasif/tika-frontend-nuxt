@@ -103,7 +103,12 @@
               <label for="district_id" class="tika-label"
                 >Select District</label
               >
-              <select v-model="district_id" class="tika-input" id="district_id">
+              <select
+                @change.prevent="getAvailableUpazilla"
+                v-model="district_id"
+                class="tika-input"
+                id="district_id"
+              >
                 <option selected value="">Select district</option>
                 <option
                   v-for="district in districts"
@@ -114,6 +119,68 @@
                 </option>
               </select>
             </p>
+            <p v-if="upazillas.length" class="mb-6">
+              <label for="upazilla_id" class="tika-label"
+                >Select Upazilla</label
+              >
+              <select
+                @change.prevent="getAvailableCenter"
+                v-model="upazilla_id"
+                class="tika-input"
+                id="upazilla_id"
+              >
+                <option selected value="">Select upazilla</option>
+                <option
+                  v-for="upazilla in upazillas"
+                  :key="upazilla.id"
+                  :value="upazilla.id"
+                >
+                  {{ upazilla.name }}
+                </option>
+              </select>
+            </p>
+            <p v-if="centers.length" class="mb-6">
+              <label for="center_id" class="tika-label">Select Center</label>
+              <select v-model="center_id" class="tika-input" id="center_id">
+                <option selected value="">Select center</option>
+                <option
+                  v-for="center in centers"
+                  :key="center.id"
+                  :value="center.id"
+                >
+                  {{ center.name }}
+                </option>
+              </select>
+            </p>
+            <p v-if="!centers.length && upazilla_id">No center available</p>
+            <div v-if="center_id" class="">
+              <p class="mb-6">
+                <label for="name" class="tika-label">Name</label>
+                <input
+                  v-model="name"
+                  type="text"
+                  name="name"
+                  id="name"
+                  class="tika-input"
+                  placeholder="Type your name"
+                />
+              </p>
+              <p class="mb-6">
+                <label for="diabetes" class="tika-label"
+                  >Do you have diabetes?</label
+                >
+                <select v-model="diabetes" class="tika-input" id="diabetes">
+                  <option selected value="">Select Value</option>
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                </select>
+              </p>
+              <p v-if="diabetes == false" class="mt-6">
+                <button @click.prevent="goToStepThree" class="primary-btn">
+                  Submit
+                </button>
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -136,8 +203,10 @@ export default {
       categories: [],
       divisions: [],
       districts: [],
+      upazillas: [],
+      centers: [],
       peopleData: [],
-      step: "step_2",
+      step: "step_3",
       verifyData: {
         category_id: "",
         id_no: "",
@@ -145,6 +214,11 @@ export default {
       },
       division_id: "",
       district_id: "",
+      upazilla_id: "",
+      upazilla_id: "",
+      center_id: "",
+      name: "",
+      diabetes: "",
     };
   },
   mounted() {
@@ -176,9 +250,25 @@ export default {
       this.$axios
         .get("/districts?division_id=" + this.division_id)
         .then((res) => {
-          console.log(res.data);
           this.districts = res.data;
         });
+    },
+    getAvailableUpazilla() {
+      this.$axios
+        .get("/upazillas?district_id=" + this.district_id)
+        .then((res) => {
+          this.upazillas = res.data;
+        });
+    },
+    getAvailableCenter() {
+      this.$axios
+        .get("/vaccination-centers?upazilla_id=" + this.upazilla_id)
+        .then((res) => {
+          this.centers = res.data;
+        });
+    },
+    goToStepThree() {
+      this.step = "step_3";
     },
   },
 };
