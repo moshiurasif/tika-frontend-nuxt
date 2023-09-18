@@ -32,7 +32,7 @@
         </div>
         <div
           :class="
-            theme == 'homepage' || theme == 'step_2 ' || theme == 'step_3'
+            theme == 'homepage' || theme == 'step_2' || theme == 'step_3'
               ? 'border-green-600'
               : 'border-gray-400'
           "

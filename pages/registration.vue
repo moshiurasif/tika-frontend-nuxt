@@ -15,9 +15,8 @@
     <div class="py-20">
       <div class="small-container mx-auto">
         <VaccineSteps :theme="step" />
-
         <div class="bg-white px-20 py-10 border border-gray-100">
-          <div v-if="step == 'step_1'" class="">
+          <div v-if="step == 'step_1'">
             <h3 class="font-bold text-4xl mb-6 text-center">
               Identity Verification
             </h3>
@@ -30,58 +29,90 @@
             </div>
 
             <p class="mb-6">
-              <label class="tika-label" for="category_id"
-                >Select category
-              </label>
+              <label for="category" class="tika-label">Select Category</label>
               <select
                 v-model="verifyData.category_id"
                 class="tika-input"
                 id="category_id"
               >
-                <option selected="selected" value="">Select a category</option>
+                <option selected value="">Select Category</option>
                 <option
-                  v-for="item in categories"
-                  :key="item.id"
-                  :value="item.id"
+                  v-for="category in categories"
+                  :key="category.id"
+                  :value="category.id"
                 >
-                  {{ item.name }}
+                  {{ category.name }}
                 </option>
               </select>
             </p>
-
             <div v-if="verifyData.category_id" class="flex -mx-4">
               <div class="w-2/3 px-4">
-                <p class="mb-6">
-                  <label for="id_no" class="tika-label"
-                    >National ID Number</label
-                  >
-                  <input
-                    id="id_no"
-                    v-model="verifyData.id_no"
-                    type="number"
-                    class="tika-input"
-                    placeholder="Type your national ID card number"
-                  />
-                </p>
+                <label for="id_no" class="tika-label">National Id Number</label>
+                <input
+                  v-model="verifyData.id_no"
+                  type="number"
+                  name="id_no"
+                  id="id_no"
+                  class="tika-input"
+                  placeholder="National Id card number"
+                />
               </div>
               <div class="w-1/3 px-4">
-                <p class="mb-6">
-                  <label for="dob" class="tika-label">Date of birth</label>
-                  <input
-                    id="dob"
-                    v-model="verifyData.dob"
-                    type="date"
-                    class="tika-input"
-                    placeholder="Type your national ID card number"
-                  />
-                </p>
+                <label for="dob" class="tika-label">Date of Birth</label>
+                <input
+                  v-model="verifyData.dob"
+                  type="date"
+                  name="dob"
+                  id="dob"
+                  class="tika-input"
+                  placeholder="Date of Birth"
+                />
               </div>
             </div>
-
-            <p>
+            <p class="mt-6">
               <button @click.prevent="checkMyInformation" class="primary-btn">
-                Check my information
+                Check my Information
               </button>
+            </p>
+          </div>
+          <div v-if="step == 'step_2'">
+            <h3 class="font-bold text-4xl mb-6 text-center">
+              User Information
+            </h3>
+            <p class="mb-6">
+              <label for="division_id" class="tika-label"
+                >Select Division</label
+              >
+              <select
+                @change.prevent="getAvailableDistrict"
+                v-model="division_id"
+                class="tika-input"
+                id="division_id"
+              >
+                <option selected value="">Select division</option>
+                <option
+                  v-for="division in divisions"
+                  :key="division.id"
+                  :value="division.id"
+                >
+                  {{ division.name }}
+                </option>
+              </select>
+            </p>
+            <p v-if="districts.length" class="mb-6">
+              <label for="district_id" class="tika-label"
+                >Select District</label
+              >
+              <select v-model="district_id" class="tika-input" id="district_id">
+                <option selected value="">Select district</option>
+                <option
+                  v-for="district in districts"
+                  :key="district.id"
+                  :value="district.id"
+                >
+                  {{ district.name }}
+                </option>
+              </select>
             </p>
           </div>
         </div>
@@ -105,29 +136,21 @@ export default {
       categories: [],
       divisions: [],
       districts: [],
-      upazillas: [],
-      centers: [],
-      step: "step_3",
       peopleData: [],
+      step: "step_2",
       verifyData: {
         category_id: "",
         id_no: "",
         dob: "",
       },
-      district_id: "",
       division_id: "",
-      upazilla_id: "",
-      center_id: "",
-      name: "",
-      diabates: "",
-      phone_no: "",
-      verify_code: "",
-      smsSent: false,
+      district_id: "",
     };
   },
   mounted() {
     this.getAvailableCategory();
-    this.getAvailableDivisions();
+    this.getAvailableDivision();
+    // this.getAvailableDistrict();
   },
   methods: {
     getAvailableCategory() {
@@ -135,12 +158,12 @@ export default {
         this.categories = res.data;
       });
     },
-
-    getAvailableDivisions() {
+    getAvailableDivision() {
       this.$axios.get("/divisions").then((res) => {
         this.divisions = res.data;
       });
     },
+
     checkMyInformation() {
       this.$axios.post("/verify", this.verifyData).then((res) => {
         this.peopleData = res.data;
@@ -149,49 +172,12 @@ export default {
         }
       });
     },
-    getAvailableDistricts() {
+    getAvailableDistrict() {
       this.$axios
         .get("/districts?division_id=" + this.division_id)
         .then((res) => {
-          this.districts = res.data;
-        });
-    },
-    getAvailableupazillas() {
-      this.$axios
-        .get("/upazillas?district_id=" + this.district_id)
-        .then((res) => {
-          this.upazillas = res.data;
-        });
-    },
-    getAvailableCenters() {
-      this.$axios
-        .get("/vaccination-centers?upazilla_id=" + this.upazilla_id)
-        .then((res) => {
-          this.centers = res.data;
-        });
-    },
-    goToStepThree() {
-      this.step = "step_3";
-    },
-    sendVerificationSMS() {
-      this.$axios
-        .post("/phone-verify", {
-          phone: this.phone_no,
-        })
-        .then((res) => {
-          if (res.data == "pending") {
-            this.smsSent = true;
-          }
-        });
-    },
-    verifyCode() {
-      this.$axios
-        .post("/phone-verify-code", {
-          phone: this.phone_no,
-          verify_code: this.verify_code,
-        })
-        .then((res) => {
           console.log(res.data);
+          this.districts = res.data;
         });
     },
   },

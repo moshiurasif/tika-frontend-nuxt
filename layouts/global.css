@@ -48,5 +48,5 @@
     @apply text-lg font-semibold text-black block mb-3 cursor-pointer
   }
   .tika-input {
-    @apply block border bg-gray-100 border-gray-200 p-4 w-full rounded-3xl focus:outline-none focus:border-gray-400
+    @apply block border bg-gray-100 border-gray-200 p-4  w-full rounded-3xl focus:outline-none focus:border-gray-400
   }

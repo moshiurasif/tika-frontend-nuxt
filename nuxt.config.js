@@ -39,10 +39,10 @@ export default {
 
   
     axios: {
-      baseURL: 'http://127.0.0.1:8000'
+      baseURL: 'http://127.0.0.1:8000/api'
     },
     proxy: {
-      '/api/': 'http://127.0.0.1:8000', // Replace with your API server URL
+      '/api/': 'http://127.0.0.1:8000/api', // Replace with your API server URL
     },
 
   // Modules: https://go.nuxtjs.dev/config-modules
