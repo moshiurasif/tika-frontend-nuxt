@@ -182,54 +182,35 @@
               </p>
             </div>
           </div>
-          <div v-if="step == 'step_3'">
+          <div v-if="!successRegistration && step === 'step_3'">
             <h3 class="font-bold text-4xl mb-6 text-center">
               Verify Phone Number
             </h3>
-            <div v-if="!smsSent">
+            <div>
               <p class="mb-6">
-                <label for="phone_number" class="tika-label"
-                  >Phone Number</label
-                >
+                <label for="phone_no" class="tika-label">Phone Number</label>
                 <input
-                  v-model="phone_number"
+                  v-model="phone_no"
                   type="text"
-                  name="phone_number"
-                  id="phone_number"
+                  name="phone_no"
+                  id="phone_no"
                   class="tika-input"
                   placeholder="Type your phone number"
                 />
               </p>
               <p class="mt-6">
-                <button
-                  @click.prevent="sendVerificationSms"
-                  class="primary-btn"
-                >
-                  Send SMS
-                </button>
-              </p>
-            </div>
-            <div v-if="smsSent">
-              <p class="mb-6">
-                <label for="verification_code" class="tika-label"
-                  >Phone Number</label
-                >
-                <input
-                  v-model="verification_code"
-                  type="text"
-                  name="verification_code"
-                  id="verification_code"
-                  class="tika-input"
-                  placeholder="Type your verification code"
-                />
-              </p>
-              <p class="mt-6">
-                <button @click.prevent="verifyCode" class="primary-btn">
-                  Verify
+                <button @click.prevent="registration" class="primary-btn">
+                  Registration
                 </button>
               </p>
             </div>
           </div>
+          <p
+            class="font-bold text-4xl mb-6 text-center text-green-600"
+            v-if="successRegistration"
+          >
+            Registration Successfully Completed
+          </p>
         </div>
       </div>
     </div>
@@ -254,7 +235,7 @@ export default {
       upazillas: [],
       centers: [],
       peopleData: [],
-      step: "step_3",
+      step: "step_1",
       verifyData: {
         category_id: "",
         id_no: "",
@@ -263,13 +244,11 @@ export default {
       division_id: "",
       district_id: "",
       upazilla_id: "",
-      upazilla_id: "",
       center_id: "",
       name: "",
       diabetes: "",
-      phone_number: "",
-      verification_code: "",
-      smsSent: false,
+      phone_no: "",
+      successRegistration: false,
     };
   },
   mounted() {
@@ -321,22 +300,22 @@ export default {
     goToStepThree() {
       this.step = "step_3";
     },
-    sendVerificationSms() {
+    registration() {
       this.$axios
-        .post("/phone-verify", {
-          phone: this.phone_number,
+        .post("/register", {
+          name: this.name,
+          dob: this.verifyData.dob,
+          id_no: this.verifyData.id_no,
+          phone_no: this.phone_no,
+          center_id: this.center_id,
+          diabetes: this.diabetes,
         })
         .then((res) => {
-          console.log(res.data);
-        });
-    },
-    verifyCode() {
-      this.$axios
-        .post("/phone-verify", {
-          phone: this.phone_number,
+          this.successRegistration = true;
+          this.phone_no = "";
         })
-        .then((res) => {
-          console.log(res.data);
+        .catch((error) => {
+          console.error("Error sending data:", error);
         });
     },
   },
