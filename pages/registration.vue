@@ -182,6 +182,54 @@
               </p>
             </div>
           </div>
+          <div v-if="step == 'step_3'">
+            <h3 class="font-bold text-4xl mb-6 text-center">
+              Verify Phone Number
+            </h3>
+            <div v-if="!smsSent">
+              <p class="mb-6">
+                <label for="phone_number" class="tika-label"
+                  >Phone Number</label
+                >
+                <input
+                  v-model="phone_number"
+                  type="text"
+                  name="phone_number"
+                  id="phone_number"
+                  class="tika-input"
+                  placeholder="Type your phone number"
+                />
+              </p>
+              <p class="mt-6">
+                <button
+                  @click.prevent="sendVerificationSms"
+                  class="primary-btn"
+                >
+                  Send SMS
+                </button>
+              </p>
+            </div>
+            <div v-if="smsSent">
+              <p class="mb-6">
+                <label for="verification_code" class="tika-label"
+                  >Phone Number</label
+                >
+                <input
+                  v-model="verification_code"
+                  type="text"
+                  name="verification_code"
+                  id="verification_code"
+                  class="tika-input"
+                  placeholder="Type your verification code"
+                />
+              </p>
+              <p class="mt-6">
+                <button @click.prevent="verifyCode" class="primary-btn">
+                  Verify
+                </button>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -219,6 +267,9 @@ export default {
       center_id: "",
       name: "",
       diabetes: "",
+      phone_number: "",
+      verification_code: "",
+      smsSent: false,
     };
   },
   mounted() {
@@ -269,6 +320,24 @@ export default {
     },
     goToStepThree() {
       this.step = "step_3";
+    },
+    sendVerificationSms() {
+      this.$axios
+        .post("/phone-verify", {
+          phone: this.phone_number,
+        })
+        .then((res) => {
+          console.log(res.data);
+        });
+    },
+    verifyCode() {
+      this.$axios
+        .post("/phone-verify", {
+          phone: this.phone_number,
+        })
+        .then((res) => {
+          console.log(res.data);
+        });
     },
   },
 };
